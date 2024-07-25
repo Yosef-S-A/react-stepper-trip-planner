@@ -1,34 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import { useState } from 'react';
+import Stepper from './components/Stepper.jsx';
+import Layout from './components/layout/layout.jsx';
+import SelectPackage from './components/SelectPackage.jsx';
+import SelectTravelDate from './components/SelectTravelDate.jsx';
+import WeatherForecast from './components/WeatherForecast.jsx';
+import Summary from './components/Summary.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [travelDates, setTravelDates] = useState({ startDate: null, endDate: null });
+
+
+  const handlePackageSelection = (newSelection) => {
+    setSelectedPackage(newSelection);
+  }
+
+  const handleDateChange = ({ startDate, endDate }) => {
+    setTravelDates({ startDate, endDate });
+  };
+
+  const handleComplete = () => {
+    alert("Your trip has been booked!");
+  };
+
+  const handleResetStepper = () => {
+    setSelectedPackage(null);
+    setTravelDates({ startDate: null, endDate: null });
+  };
+
+  const steps = [
+    {
+      title: "Select Destination Package",
+      content: (
+        <SelectPackage
+          apiEndpoint="http://localhost:4000/api/v1/tripPackages"
+          onSelectionChange={handlePackageSelection}
+        />
+      ),
+    },
+    { title: "Select Travel Dates",
+      content: (
+        <SelectTravelDate 
+          duration={selectedPackage ? selectedPackage.duration : 0}
+          onDateChange={handleDateChange} />
+      ),
+    },
+    {
+      title: "Weather Forecast",
+      content: (
+        <WeatherForecast
+          packageId={selectedPackage ? selectedPackage?._id : ''}
+          startDate={travelDates.startDate}
+          endDate={travelDates.endDate} />
+      ),
+    },
+    { title: "Summary", 
+      content: (
+        <Summary 
+          selectedPackage ={selectedPackage}
+          travelDates={travelDates} />
+      ),
+    },
+  ];
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Layout>
+        <Stepper steps={steps} packageSelected={Boolean(selectedPackage)} onComplete={handleComplete} onReset={handleResetStepper}/>
+      </Layout>
+    </div>
   )
 }
 
