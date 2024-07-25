@@ -5,6 +5,7 @@ import countryRouter from './routes/countryRouter.js';
 import destinationRouter from './routes/destinationRouter.js';
 import tripPackageRouter from './routes/tripPackageRouter.js';
 import weatherRouter from './routes/weatherRouter.js';
+import AppError from './utils/appError.js';
 
 const app = express();
 
