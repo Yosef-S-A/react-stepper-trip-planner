@@ -1,10 +1,18 @@
 import express from 'express';
+import mongoSanitize from 'express-mongo-sanitize';
+import cors from 'cors';
 import countryRouter from './routes/countryRoutes.js';
 import destinationRouter from './routes/destinationRouter.js';
 import tripPackageRouter from './routes/tripPackageRouter.js';
 import weatherRouter from './routes/weatherRouter.js';
 
+app.use(cors());
 
+app.options('*', cors());
+
+app.use(express.json());
+
+app.use(mongoSanitize());
 
 const app = express();
 
