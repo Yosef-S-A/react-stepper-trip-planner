@@ -20,5 +20,14 @@ For the frontend setup, check out this **[document here](https://github.com/Yose
 
 For the backend setup, check out this **[document here](https://github.com/Yosef-S-A/react-stepper-trip-planner/tree/main/backend)**.
 
+
+#### App view
+
+
+https://github.com/user-attachments/assets/188e5584-caa0-4ad3-9bbb-ee49c3141d81
+
+
+
+
 #### Author
 Yosef S.
