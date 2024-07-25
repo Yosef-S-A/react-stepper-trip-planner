@@ -11,6 +11,7 @@ function App() {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [travelDates, setTravelDates] = useState({ startDate: null, endDate: null });
 
+  const apiEndpoint = import.meta.env.VITE_REACT_APP_API_URL;
 
   const handlePackageSelection = (newSelection) => {
     setSelectedPackage(newSelection);
@@ -34,7 +35,7 @@ function App() {
       title: "Select Destination Package",
       content: (
         <SelectPackage
-          apiEndpoint="http://localhost:4000/api/v1/tripPackages"
+          apiEndpoint={`${apiEndpoint}/tripPackages`}
           onSelectionChange={handlePackageSelection}
         />
       ),

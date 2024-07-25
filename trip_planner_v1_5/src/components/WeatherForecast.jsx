@@ -9,10 +9,12 @@ const WeatherForecast = ({ packageId, startDate, endDate }) => {
   const [error, setError] = useState(null);
   const [collapsedCities, setCollapsedCities] = useState({});
 
+  const apiEndpoint = import.meta.env.VITE_REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await axios.post('http://localhost:4000/api/v1/weather-forecast', {
+        const response = await axios.post(`${apiEndpoint}/weather-forecast`, {
           packageId,
           startDate: startDate.toISOString().split('T')[0],
           endDate: endDate.toISOString().split('T')[0],

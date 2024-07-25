@@ -25,7 +25,6 @@ const SelectPackage = ({ apiEndpoint, onSelectionChange }) => {
   }, [apiEndpoint]);
 
   const handleSelect = (packageItem) => {
-    console.log(packageItem);
     setSelectedPackage(packageItem);
     onSelectionChange(packageItem);
   };
